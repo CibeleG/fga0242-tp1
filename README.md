@@ -4,3 +4,4 @@
 | Nome | Matrícula |
    |---|---|
    | Cibele Freitas Goudinho | 180099353 |
+   | Denniel William Roriz Lima | 170161871 |
