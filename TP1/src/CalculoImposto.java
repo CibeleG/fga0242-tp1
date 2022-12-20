@@ -1,12 +1,28 @@
 public class CalculoImposto {
 
-    private double base;
-    private double deducoes;
-    private double rendimentos;
 
-    public double baseNumero() {
-        double base = rendimentos - deducoes;
-        return base;
+    public double totalRend(Contribuinte contribuinte) {
+        double somaRendimentos = 0;
+        for (int i=0;i < contribuinte.rendimentos.length;i++ ){
+            somaRendimentos = somaRendimentos + contribuinte.rendimentos[i].valor;
+        }
+        return somaRendimentos;
+    }
+
+    public double totalDedu(Contribuinte contribuinte) {
+        double somaDeducoes = 0;
+        for (int i=0;i < contribuinte.deducoes.length;i++ ){
+            somaDeducoes = somaDeducoes + contribuinte.deducoes[i].valor;
+        }
+        return somaDeducoes;
+    }
+
+
+    public double baseCalculo(Contribuinte contribuinte) {
+        double rendimentos = totalRend(contribuinte);
+        double deducoes = totalDedu(contribuinte);
+        double baseImposto = rendimentos - deducoes;
+        return baseImposto;
     }
 
     public double calFaixa(double valorSuperior, double valorInferior, double aliquota) {
@@ -14,9 +30,9 @@ public class CalculoImposto {
         return valorFaixa;
     }
 
-    public double imposto() throws BaseInvalidaException {
+    public double imposto(Contribuinte contribuinte) throws BaseInvalidaException {
         double totalImpostos = -1;
-        double base = baseNumero();
+        double base = baseCalculo(contribuinte);
 
         if (base < 0) {
             throw new BaseInvalidaException(base);
