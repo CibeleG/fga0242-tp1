@@ -6,14 +6,14 @@ import java.util.List;
 public class SimuladorIRPF {
 		
 	private List <Rendimento> rendimentos;
-	private totalRendimento;
+	private float totalRendimento;
 	
-	public Simulador() {
+	public SimuladorIRPF() {
 		rendimentos = new LinkedList <Rendimento>();
 	}
 	
 	public void cadastroRendimento(String descricaoRendimento, float valorRendimento) throws DescricaoEmBrancoException, ValorRendimentoInvalidoException{
-		if(descricaoRendimeto == null) {
+		if(descricaoRendimento == null) {
 			throw new DescricaoEmBrancoException();
 		}
 		if (valorRendimento <= 0) {
@@ -23,7 +23,7 @@ public class SimuladorIRPF {
 		Rendimento rendimentoNovo = new Rendimento(descricaoRendimento, valorRendimento);
 		this.rendimentos.add(rendimentoNovo);
 		
-		this.totalRendimento += valorRendimento
+		this.totalRendimento += valorRendimento;
 	}
 	
 	public float getTotalRendimento() {
