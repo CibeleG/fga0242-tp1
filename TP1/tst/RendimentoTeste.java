@@ -4,24 +4,16 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 
 import src.DescricaoEmBrancoException;
 import src.SimuladorIRPF;
 import src.ValorRendimentoInvalidoException;
 
-import java.util.Arrays;
-import java.util.Collection;
-
-
 
 public class RendimentoTeste {
 
 	SimuladorIRPF simulador;
-	private Object[][] rendimentos;
-	private float valor;
+	
 	
 	@Before
 	public void setup() {
