@@ -3,11 +3,10 @@ package src;
 import java.util.LinkedList;
 import java.util.List;
 
-
-
-public class Simulador {
+public class SimuladorIRPF {
 		
 	private List <Rendimento> rendimentos;
+	private totalRendimento;
 	
 	public Simulador() {
 		rendimentos = new LinkedList <Rendimento>();
@@ -25,5 +24,9 @@ public class Simulador {
 		this.rendimentos.add(rendimentoNovo);
 		
 		this.totalRendimento += valorRendimento
+	}
+	
+	public float getTotalRendimento() {
+		return totalRendimento;
 	}
 }
