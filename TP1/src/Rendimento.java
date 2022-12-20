@@ -1,9 +1,9 @@
 public class Rendimento {
-    double valor;
-    String descricao;
-
-    public Rendimento(double valor, String descricao) {
-        this.valor = valor;
-        this.descricao = descricao;
-    }
+	private String descricaoRendimento;
+	private float totalRendimento;
+	
+	public Rendimento(String descricaoRendimento, float valorRendimento) {
+		this.descricaoRendimento = descricaoRendimento;
+		this.totalRendimento = valorRendimento;
+	}
 }
