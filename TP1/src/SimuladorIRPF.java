@@ -1,17 +1,38 @@
 import java.util.*;
-
 public class SimuladorIRPF {
     private ArrayList<Float> pensoes;
     private List<Dependente> dependentes;
     private List<Deducao> deducoes;
     private List<Contribuicao> contribuicoes;
+    private List <Rendimento> rendimentos;
+	private float totalRendimento;
 
     SimuladorIRPF(){
         pensoes = new ArrayList<Float>();
         dependentes = new LinkedList<Dependente>();
         deducoes = new LinkedList<Deducao>();
         contribuicoes = new LinkedList<Contribuicao>();
+        rendimentos = new LinkedList <Rendimento>();
     }
+
+    public void cadastroRendimento(String descricaoRendimento, float valorRendimento) throws DescricaoEmBrancoException, ValorRendimentoInvalidoException{
+		if(descricaoRendimento == null) {
+			throw new DescricaoEmBrancoException("Descrição em Branco");
+		}
+		if (valorRendimento <= 0) {
+			throw new ValorRendimentoInvalidoException();
+		}
+		
+		Rendimento rendimentoNovo = new Rendimento(descricaoRendimento, valorRendimento);
+		this.rendimentos.add(rendimentoNovo);
+		
+		this.totalRendimento += valorRendimento;
+	}
+	
+	public float getTotalRendimento() {
+		return totalRendimento;
+	}
+
     public void cadastrarPensaoAlimenticia(float valor) {
         pensoes.add(valor);
     }
