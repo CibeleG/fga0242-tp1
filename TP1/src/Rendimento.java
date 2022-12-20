@@ -1,5 +1,3 @@
-package src;
-
 public class Rendimento {
 	private String descricaoRendimento;
 	private float totalRendimento;

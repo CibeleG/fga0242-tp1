@@ -1,8 +1,5 @@
-package src;
-
-public class DescricaoEmBrancoException extends Throwable {
-	
-	public DescricaoEmBrancoException() {
-		super("Descricao em Branco");
-	}
+public class DescricaoEmBrancoException extends Exception{
+    public DescricaoEmBrancoException(String message){
+        super(message);
+    }
 }

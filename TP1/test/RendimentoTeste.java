@@ -1,17 +1,9 @@
-package tst;
-
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import src.DescricaoEmBrancoException;
-import src.SimuladorIRPF;
-import src.ValorRendimentoInvalidoException;
-
-
 public class RendimentoTeste {
-
 	SimuladorIRPF simulador;
 	
 	
