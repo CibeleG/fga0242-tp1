@@ -98,6 +98,12 @@ public class SimuladorIRPF {
 
 
     public float getTotalDeducoes() {
-        return this.deducoes.get(0).getValor();
+        float valorTotal = 0f;
+
+        for(Deducao deducoes: this.deducoes){
+            valorTotal += deducoes.getValor();
+        }
+
+        return valorTotal;
     }
 }
