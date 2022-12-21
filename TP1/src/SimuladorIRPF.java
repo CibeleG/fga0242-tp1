@@ -117,4 +117,8 @@ public class SimuladorIRPF {
             return faixa.getValorMaximo() - faixa.getValorMinimo();
         }
     }
+
+    public Object calcularValorImpostoFaixa(int i) {
+        return 0f;
+    }
 }
