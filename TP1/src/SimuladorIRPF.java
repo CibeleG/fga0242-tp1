@@ -17,10 +17,10 @@ public class SimuladorIRPF {
         faixas = new LinkedList<FaixaImposto>();
 
         faixas.add(new FaixaImposto(0f,1903.98f, 0.00f));
-        faixas.add(new FaixaImposto(1903.99f, 2826.65f, 0.075f));
-        faixas.add(new FaixaImposto(2826.66f,3751.05f, 0.15f));
-        faixas.add(new FaixaImposto(3751.06f,4664.68f, 0.225f));
-        faixas.add(new FaixaImposto(4664.69f, Float.POSITIVE_INFINITY,0.275f));
+        faixas.add(new FaixaImposto(1903.98f, 2826.65f, 0.075f));
+        faixas.add(new FaixaImposto(2826.65f,3751.05f, 0.15f));
+        faixas.add(new FaixaImposto(3751.05f,4664.68f, 0.225f));
+        faixas.add(new FaixaImposto(4664.68f, Float.POSITIVE_INFINITY,0.275f));
     }
 
     public void cadastroRendimento(String descricaoRendimento, float valorRendimento) throws DescricaoEmBrancoException, ValorRendimentoInvalidoException{
@@ -109,6 +109,12 @@ public class SimuladorIRPF {
     public double calcularValorBaseFaixa(int i) {
         FaixaImposto faixa = faixas.get(i-1);
 
-        return faixa.getAliquota() * faixa.getValorMaximo() + faixa.getValorMaximo();
+        float calculoBase = getTotalRendimento() - getTotalDeducoes();
+
+        if (faixa.getValorMaximo() > calculoBase){
+            return calculoBase % (faixa.getValorMinimo());
+        } else {
+            return faixa.getValorMaximo() - faixa.getValorMinimo();
+        }
     }
 }

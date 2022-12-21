@@ -12,10 +12,24 @@ public class CalculoBaseImpostoFaixa {
     }
 
     @Test
-    public void testCalculoBaseUmaFaixa() throws ValorRendimentoInvalidoException, DescricaoEmBrancoException {
+    public void testCalculoBaseFaixaUm() throws ValorRendimentoInvalidoException, DescricaoEmBrancoException {
         simul.cadastroRendimento("Salario", 5000f);
 
-        assertEquals(1903.98f, simul.calcularValorBaseFaixa(1), 0f);
+        assertEquals("1903,98", String.format("%.2f", simul.calcularValorBaseFaixa(1)));
+    }
+
+    @Test
+    public void testCalculoBaseFaixaDois() throws ValorRendimentoInvalidoException, DescricaoEmBrancoException {
+        simul.cadastroRendimento("Salario", 5000f);
+
+        assertEquals("922,67", String.format("%.2f", simul.calcularValorBaseFaixa(2)));
+    }
+
+    @Test
+    public void testCalculoBaseFaixaTres() throws ValorRendimentoInvalidoException, DescricaoEmBrancoException {
+        simul.cadastroRendimento("Salario", 5000f);
+
+        assertEquals("924,40", String.format("%.2f", simul.calcularValorBaseFaixa(3)));
     }
 
 }

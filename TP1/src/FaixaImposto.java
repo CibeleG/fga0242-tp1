@@ -9,7 +9,7 @@ public class FaixaImposto {
         this.aliquota = aliquota;
     }
 
-    public float getValoMinimo() {
+    public float getValorMinimo() {
         return valorMinimo;
     }
 
