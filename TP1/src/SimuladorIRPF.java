@@ -66,12 +66,14 @@ public class SimuladorIRPF {
     }
 
     public void cadastrarDeducao(String descricaoDeducao, float valorDeducao) throws DescricaoEmBrancoException, ValorDeducaoInvalidoException {
+
         if(descricaoDeducao.split(" ").length == 0){
             throw new DescricaoEmBrancoException("Descrição em branco");
         }
         if(valorDeducao < 0 && String.valueOf(valorDeducao).split(" ").length == 0){
             throw new ValorDeducaoInvalidoException("Valor da dedução inválido");
         }
+
         Deducao deducao = new Deducao(descricaoDeducao, valorDeducao);
         this.deducoes.add(deducao);
     }
@@ -99,8 +101,8 @@ public class SimuladorIRPF {
     public float getTotalDeducoes() {
         float valorTotal = 0f;
 
-        for(Deducao deducoes: this.deducoes){
-            valorTotal += deducoes.getValor();
+        for(Deducao deducao: this.deducoes){
+            valorTotal += deducao.getValor();
         }
 
         return valorTotal;
@@ -111,6 +113,9 @@ public class SimuladorIRPF {
 
         float calculoBase = getTotalRendimento() - getTotalDeducoes();
 
+        if(calculoBase < faixa.getValorMinimo()){
+            return 0;
+        }
         if (faixa.getValorMaximo() > calculoBase || faixa.getValorMaximo() == Float.POSITIVE_INFINITY){
             return calculoBase % (faixa.getValorMinimo());
         } else {
@@ -123,12 +128,12 @@ public class SimuladorIRPF {
         return this.calcularValorBaseFaixa(i) * faixa.getAliquota();
     }
 
-    public float getAliquotaEfetiva() {
+    public double getAliquotaEfetiva() {
         return this.getTotalImposto() / this.totalRendimento;
     }
 
     private float getTotalImposto() {
-        float valorTotalImposto = 0;
+        float valorTotalImposto = 0.00f;
         for(int i = 1; i < 6; i++){
             valorTotalImposto += this.calcularValorImpostoFaixa(i);
         }
