@@ -6,4 +6,8 @@ public class Rendimento {
 		this.descricaoRendimento = descricaoRendimento;
 		this.totalRendimento = valorRendimento;
 	}
+
+	public float getRendimento() {
+		return totalRendimento;
+	}
 }

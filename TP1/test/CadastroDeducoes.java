@@ -56,7 +56,6 @@ public class CadastroDeducoes {
     public void testCadastroDeducoes() throws DescricaoEmBrancoException, ValorDeducaoInvalidoException  {
         for(Object[] dp: deducoes){
             simul.cadastrarDeducao((String) dp[0], (float) dp[1]);
-
         }
         int count = 0;
         for(String ne: descricaoEsperado){

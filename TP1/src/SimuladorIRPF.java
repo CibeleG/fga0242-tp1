@@ -6,6 +6,7 @@ public class SimuladorIRPF {
     private List<Contribuicao> contribuicoes;
     private List <Rendimento> rendimentos;
 	private float totalRendimento;
+    private List<FaixaImposto> faixas;
 
     SimuladorIRPF(){
         pensoes = new ArrayList<Float>();
@@ -13,6 +14,13 @@ public class SimuladorIRPF {
         deducoes = new LinkedList<Deducao>();
         contribuicoes = new LinkedList<Contribuicao>();
         rendimentos = new LinkedList <Rendimento>();
+        faixas = new LinkedList<FaixaImposto>();
+
+        faixas.add(new FaixaImposto(0f,1903.98f, 0.00f));
+        faixas.add(new FaixaImposto(1903.98f, 2826.65f, 0.075f));
+        faixas.add(new FaixaImposto(2826.65f,3751.05f, 0.15f));
+        faixas.add(new FaixaImposto(3751.05f,4664.68f, 0.225f));
+        faixas.add(new FaixaImposto(4664.68f, Float.POSITIVE_INFINITY,0.275f));
     }
 
     public void cadastroRendimento(String descricaoRendimento, float valorRendimento) throws DescricaoEmBrancoException, ValorRendimentoInvalidoException{
@@ -58,12 +66,14 @@ public class SimuladorIRPF {
     }
 
     public void cadastrarDeducao(String descricaoDeducao, float valorDeducao) throws DescricaoEmBrancoException, ValorDeducaoInvalidoException {
+
         if(descricaoDeducao.split(" ").length == 0){
             throw new DescricaoEmBrancoException("Descrição em branco");
         }
         if(valorDeducao < 0 && String.valueOf(valorDeducao).split(" ").length == 0){
             throw new ValorDeducaoInvalidoException("Valor da dedução inválido");
         }
+
         Deducao deducao = new Deducao(descricaoDeducao, valorDeducao);
         this.deducoes.add(deducao);
     }
@@ -85,5 +95,49 @@ public class SimuladorIRPF {
 
     public List<Contribuicao> getContribuicoes() {
         return this.contribuicoes;
+    }
+
+
+    public float getTotalDeducoes() {
+        float valorTotal = 0f;
+
+        for(Deducao deducao: this.deducoes){
+            valorTotal += deducao.getValor();
+        }
+
+        return valorTotal;
+    }
+
+    public float calcularValorBaseFaixa(int i) {
+        FaixaImposto faixa = faixas.get(i-1);
+
+        float calculoBase = getTotalRendimento() - getTotalDeducoes();
+
+        if(calculoBase < faixa.getValorMinimo()){
+            return 0;
+        }
+        if (faixa.getValorMaximo() > calculoBase || faixa.getValorMaximo() == Float.POSITIVE_INFINITY){
+            return calculoBase % (faixa.getValorMinimo());
+        } else {
+            return faixa.getValorMaximo() - faixa.getValorMinimo();
+        }
+    }
+
+    public float calcularValorImpostoFaixa(int i) {
+        FaixaImposto faixa = faixas.get(i-1);
+        return this.calcularValorBaseFaixa(i) * faixa.getAliquota();
+    }
+
+    public double getAliquotaEfetiva() {
+        return this.getTotalImposto() / this.totalRendimento;
+    }
+
+    private float getTotalImposto() {
+        float valorTotalImposto = 0.00f;
+        for(int i = 1; i < 6; i++){
+            valorTotalImposto += this.calcularValorImpostoFaixa(i);
+        }
+
+        return valorTotalImposto;
     }
 }
