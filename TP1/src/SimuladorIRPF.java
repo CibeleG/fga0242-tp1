@@ -97,4 +97,7 @@ public class SimuladorIRPF {
     }
 
 
+    public float getTotalDeducoes() {
+        return this.deducoes.get(0).getValor();
+    }
 }
