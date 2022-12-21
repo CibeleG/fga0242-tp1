@@ -1,8 +1,8 @@
 
 public class Contribuinte {
-    String nome;
-    Rendimento[] rendimentos;
-    Deducao[] deducoes;
+    private String nome;
+    private Rendimento[] rendimentos;
+    private Deducao[] deducoes;
 
     public Contribuinte(String nome, Rendimento[] rendimentos, Deducao[] deducoes) {
         this.deducoes = deducoes;
@@ -15,4 +15,10 @@ public class Contribuinte {
         return c;
     }
 
+    public Rendimento[] getRendimentos() {
+        return rendimentos;
+    }
+    public Deducao[] getDeducoes() {
+        return deducoes;
+    }
 }

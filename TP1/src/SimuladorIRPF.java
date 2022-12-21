@@ -7,12 +7,21 @@ public class SimuladorIRPF {
     private List <Rendimento> rendimentos;
 	private float totalRendimento;
 
+    private List<FaixaImposto> faixas;
+
     SimuladorIRPF(){
         pensoes = new ArrayList<Float>();
         dependentes = new LinkedList<Dependente>();
         deducoes = new LinkedList<Deducao>();
         contribuicoes = new LinkedList<Contribuicao>();
         rendimentos = new LinkedList <Rendimento>();
+        faixas = new LinkedList<FaixaImposto>();
+
+        faixas.add(new FaixaImposto(1, 1903.98f));
+        faixas.add(new FaixaImposto(2, 922.67f));
+        faixas.add(new FaixaImposto(3, 924.40f));
+        faixas.add(new FaixaImposto(4, 913.63f));
+        faixas.add(new FaixaImposto(5, 0f));
     }
 
     public void cadastroRendimento(String descricaoRendimento, float valorRendimento) throws DescricaoEmBrancoException, ValorRendimentoInvalidoException{
@@ -86,4 +95,6 @@ public class SimuladorIRPF {
     public List<Contribuicao> getContribuicoes() {
         return this.contribuicoes;
     }
+
+
 }
