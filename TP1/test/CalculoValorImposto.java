@@ -17,4 +17,18 @@ public class CalculoValorImposto {
 
         assertEquals("0,00", String.format("%.2f", simul.calcularValorImpostoFaixa(1)));
     }
+    @Test
+    public void testCalculoValorImpostoFaixaDois() throws ValorRendimentoInvalidoException, DescricaoEmBrancoException, ValorDeducaoInvalidoException {
+        simul.cadastroRendimento("Salario", 5250f);
+        simul.cadastrarDeducao("Saude", 250f);
+
+        assertEquals("69,20", String.format("%.2f", simul.calcularValorImpostoFaixa(2)));
+    }
+    @Test
+    public void testCalculoValorImpostoFaixaTres() throws ValorRendimentoInvalidoException, DescricaoEmBrancoException, ValorDeducaoInvalidoException {
+        simul.cadastroRendimento("Salario", 5250f);
+        simul.cadastrarDeducao("Saude", 250f);
+
+        assertEquals("138,66", String.format("%.2f", simul.calcularValorImpostoFaixa(3)));
+    }
 }
