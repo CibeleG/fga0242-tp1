@@ -1,8 +1,21 @@
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+
+import static org.junit.runners.Parameterized.*;
+
+import java.util.Arrays;
+import java.util.Collection;
+
 import static org.junit.Assert.*;
 
+@RunWith(Parameterized.class)
 public class CalculoBaseImpostoFaixa {
+    Object[][] rendimentos;
+    Object[][] deducoes;
+    int faixa;
+    String valorEsperado;
 
     private SimuladorIRPF simul;
 
@@ -11,25 +24,44 @@ public class CalculoBaseImpostoFaixa {
         simul = new SimuladorIRPF();
     }
 
-    @Test
-    public void testCalculoBaseFaixaUm() throws ValorRendimentoInvalidoException, DescricaoEmBrancoException {
-        simul.cadastroRendimento("Salario", 5000f);
+    public CalculoBaseImpostoFaixa(Object[][] rendimentos, Object[][] deducoes, int faixa, String valorEsperado){
+        this.rendimentos = rendimentos;
+        this.deducoes = deducoes;
+        this.faixa = faixa;
+        this.valorEsperado = valorEsperado;
+    }
 
-        assertEquals("1903,98", String.format("%.2f", simul.calcularValorBaseFaixa(1)));
+    @Parameters
+    public static Collection<Object[]> getParameters(){
+        return Arrays.asList(new Object[][]{
+                {new Object[][]{
+                        {"Salario", 5250f}
+                }, new Object[][]{
+                        {"Saude", 250f}
+                }, 1,"1903,98"},
+                {new Object[][]{
+                        {"Salario", 5250f}
+                }, new Object[][]{
+                        {"Saude", 250f}
+                }, 2,"922,67"},
+                {new Object[][]{
+                        {"Salario", 5250f}
+                }, new Object[][]{
+                        {"Saude", 250f}
+                }, 3,"924,40"}
+        });
     }
 
     @Test
-    public void testCalculoBaseFaixaDois() throws ValorRendimentoInvalidoException, DescricaoEmBrancoException {
-        simul.cadastroRendimento("Salario", 5000f);
+    public void testCalculoBaseFaixa() throws ValorRendimentoInvalidoException, DescricaoEmBrancoException, ValorDeducaoInvalidoException {
+        for(Object [] rd: rendimentos){
+            simul.cadastroRendimento((String) rd[0], (Float) rd[1]);
+        }
 
-        assertEquals("922,67", String.format("%.2f", simul.calcularValorBaseFaixa(2)));
+        for(Object [] de: deducoes){
+            simul.cadastrarDeducao((String) de[0], (Float) de[1]);
+        }
+
+        assertEquals(valorEsperado, String.format("%.2f", simul.calcularValorBaseFaixa(faixa)));
     }
-
-    @Test
-    public void testCalculoBaseFaixaTres() throws ValorRendimentoInvalidoException, DescricaoEmBrancoException {
-        simul.cadastroRendimento("Salario", 5000f);
-
-        assertEquals("924,40", String.format("%.2f", simul.calcularValorBaseFaixa(3)));
-    }
-
 }
