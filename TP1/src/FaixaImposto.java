@@ -1,8 +1,23 @@
 public class FaixaImposto {
-    private int numero;
+    private float valorMinimo;
     private float valorMaximo;
-    public FaixaImposto(int numero, float valorMaximo) {
-        this.numero = numero;
+    private float aliquota;
+
+    public FaixaImposto(float valorMinimo, float valorMaximo, float aliquota) {
+        this.valorMinimo = valorMinimo;
         this.valorMaximo = valorMaximo;
+        this.aliquota = aliquota;
+    }
+
+    public float getValoMinimo() {
+        return valorMinimo;
+    }
+
+    public float getAliquota() {
+        return aliquota;
+    }
+
+    public float getValorMaximo() {
+        return valorMaximo;
     }
 }
