@@ -66,16 +66,11 @@ public class SimuladorIRPF {
     }
 
     public void cadastrarDeducao(String descricaoDeducao, float valorDeducao) throws DescricaoEmBrancoException, ValorDeducaoInvalidoException {
-
-        if(descricaoDeducao.split(" ").length == 0){
-            throw new DescricaoEmBrancoException("Descrição em branco");
-        }
-        if(valorDeducao < 0 && String.valueOf(valorDeducao).split(" ").length == 0){
-            throw new ValorDeducaoInvalidoException("Valor da dedução inválido");
-        }
-
         Deducao deducao = new Deducao(descricaoDeducao, valorDeducao);
-        this.deducoes.add(deducao);
+
+        if(deducao.validate()){
+            this.deducoes.add(new Deducao(descricaoDeducao, valorDeducao));
+        }
     }
 
     public List<Deducao> getDeducoes() {
