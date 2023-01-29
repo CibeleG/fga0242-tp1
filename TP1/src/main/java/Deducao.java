@@ -2,11 +2,7 @@ public class Deducao {
     private String descricao;
     private float valor;
 
-    public Deducao(String descricao, float valorDeducao) throws DescricaoEmBrancoException, ValorDeducaoInvalidoException {
-        if(descricao.split(" ").length == 0)
-            throw new DescricaoEmBrancoException("Descrição em branco");
-        if(valorDeducao < 0 || String.valueOf(valorDeducao).split(" ").length == 0)
-        	throw new ValorDeducaoInvalidoException("Valor da dedução inválido");
+    public Deducao(String descricao, float valorDeducao) {
         this.descricao = descricao;
         this.valor = valorDeducao;
     }
@@ -16,5 +12,14 @@ public class Deducao {
     }
     public float getValor() {
         return this.valor;
+    }
+
+    public boolean validate() throws ValorDeducaoInvalidoException, DescricaoEmBrancoException {
+        if(this.descricao.split(" ").length == 0)
+            throw new DescricaoEmBrancoException("Descrição em branco");
+
+        if(this.valor < 0 || String.valueOf(this.valor).split(" ").length == 0)
+            throw new ValorDeducaoInvalidoException("Valor da dedução inválido");
+        return true;
     }
 }
