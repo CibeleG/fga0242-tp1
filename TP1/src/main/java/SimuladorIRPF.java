@@ -111,7 +111,7 @@ public class SimuladorIRPF {
         return valorTotal;
     }
 
-    public float calcularValorBaseFaixa(int i) {
+    public float calculoBase(int i) {
         FaixaImposto faixa = faixas.get(i-1);
 
         float calculoBase = getTotalRendimento() - getTotalDeducoes();
@@ -124,6 +124,9 @@ public class SimuladorIRPF {
         } else {
             return faixa.getValorMaximo() - faixa.getValorMinimo();
         }
+    }
+    public float calcularValorBaseFaixa(int i) {
+        return this.calculoBase(i);
     }
 
     public float calcularValorImpostoFaixa(int i) {
