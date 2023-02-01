@@ -115,16 +115,19 @@ public class SimuladorIRPF {
         FaixaImposto faixa = faixas.get(i-1);
 
         float calculoBase = getTotalRendimento() - getTotalDeducoes();
+        float valorMinimo = faixa.getValorMaximo();
+        float valorMaximo = faixa.getValorMaximo();
 
-        if(calculoBase < faixa.getValorMinimo()){
+        if(calculoBase < valorMinimo){
             return 0f;
         }
-        if (faixa.getValorMaximo() > calculoBase || faixa.getValorMaximo() == Float.POSITIVE_INFINITY){
-            return calculoBase % (faixa.getValorMinimo());
+        if (valorMaximo > calculoBase || valorMaximo == Float.POSITIVE_INFINITY){
+            return calculoBase % valorMinimo;
         } else {
-            return faixa.getValorMaximo() - faixa.getValorMinimo();
+            return valorMaximo - valorMinimo;
         }
     }
+    
     public float calcularValorBaseFaixa(int i) {
         return this.calculoBase(i);
     }
